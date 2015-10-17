@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa de Clientes</ui:define>
+    
+    <ui:define name="corpo">
+    
+    <p:growl id="mensagem" />
+    
+    <h:form id="formCliente">
+	    	<h1>Pesquisa de Clientes</h1>
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Pesquisar" actionListener="#{clienteBean.pesquisar()}" 
+	    			update="@form"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Novo" outcome="/cliente/clienteCadastro" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel1" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="CPF" for="cpf"/>
+	    		<p:inputText styleClass="cpf" id="cpf" size="14" maxlength="14"  value="#{clienteBean.filtro.cpf}"/>
+	    		
+	    		<p:outputLabel value="Nome" for="nome"/>
+	    		<p:inputText id="nome" size="60" value="#{clienteBean.filtro.nome}"/>
+	    	</p:panelGrid>
+	    	
+	    	<p:dataTable id="tabela"  var="cliente" value="#{clienteBean.clientes}"
+	    	style="margin-top: 20px" emptyMessage="Nenhum cliente encontrado." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Codigo" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{cliente.id}"/>
+	    		</p:column>
+	    		<p:column headerText="Nome" style="width: 200px">
+	    			<h:outputText  value="#{cliente.nome}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="CPF" style="width: 200px">
+	    			<h:outputText value="#{cliente.cpf}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="RG" style="width: 200px">
+	    			<h:outputText value="#{cliente.rg}" />
+	    		</p:column>
+	    		<p:column style="width: 100px; text-align: center">
+	    			<p:button icon="ui-icon-pencil" title="Editar"
+	    			outcome="/cliente/clienteCadastro" >
+	    			 <f:param name="funAcao" value="#{cliente.id}"/>
+	    			</p:button>
+	    			
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir"
+	    			actionListener="#{clienteBean.excluir}" update=":mensagem :formCliente:tabela" >
+	    			<p:confirm header="Confirmação" message="Deseja excluir o cliente?"
+	    			icon="ui-icon-alert"/>
+	    			<f:attribute name="clienteSelecionado" value="#{cliente}"/>
+	    			</p:commandButton>
+	    		</p:column>
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog global="true">
+	    	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+	    	icon="ui-icon-check"/>
+	    	<p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no"
+	    	icon="ui-icon-close"/>
+	    	</p:confirmDialog>
+	    	
+    	</h:form>
+    	
+    </ui:define>
+</ui:composition>

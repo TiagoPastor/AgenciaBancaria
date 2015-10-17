@@ -1,0 +1,54 @@
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Novo produto</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+    		<f:viewParam name="dummy" />
+    		<!-- <f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView" /> -->
+    	</f:metadata>
+    
+    	<h:form>
+	    	<h1>Novo Conta</h1>
+	    	
+	    	<p:messages autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:button value="Novo" />
+	    			<p:commandButton value="Salvar" id="botaoSalvar"
+	    				 update="@form" />
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Pesquisa"  />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="Agência" for="agencia"/>
+	    		<p:inputText id="agencia" size="20" maxlength="20"  />
+	    		
+	    		<p:outputLabel value="senha" for="senha"/>
+	    		<p:inputText id="senha" size="20" maxlength="20" />
+	    		
+	    		<p:outputLabel value="Tipo da Conta" for="tipoConta"/>
+	    		<p:selectOneMenu id="tipoConta" >
+	    			<f:selectItem itemLabel="Selecione o tipo da conta"/>
+	    			<f:selectItems  var="poupanca"/>
+	    			<f:selectItems  var="corrente"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel value="Limite" for="limite"/>
+	    		<p:inputText id="limite" size="10" maxlength="10" styleClass="moeda">
+	    			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
+	    		</p:inputText>
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>

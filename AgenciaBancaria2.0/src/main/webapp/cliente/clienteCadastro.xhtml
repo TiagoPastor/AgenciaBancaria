@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de Carros</ui:define>
+
+	<ui:define name="corpo">
+	
+	   <ui:define name="metadata">
+	     <f:metadata>
+	       <f:event listener="#{clienteBean.carregarCadastro()}" type="preRenderView"></f:event>
+	     </f:metadata>
+	   </ui:define>
+	<p:growl id="mensagem" />
+	<!-- <f:metadata>
+	  <o:viewParam name="cliente" value="#{clienteBean.cliente}"/>
+	</f:metadata> -->
+		<h:form>
+			<h1>Novo Clientes</h1>
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" />
+					<p:commandButton value="Salvar" actionListener="#{clienteBean.salvar}" 
+					update="mensagem"/>
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/cliente/pesquisaCliente" />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" 
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Nome" />
+				<p:inputText id="nome" value="#{clienteBean.cliente.nome}" 
+				readonly="#{clienteBean.cliente.nome}"/>
+
+				<p:outputLabel value="CPF"  />
+				<p:inputText id="cpf" styleClass="cpf" size="14" maxlength="14" value="#{clienteBean.cliente.cpf}"
+				readonly="#{clienteBean.cliente.cpf}">
+				
+				</p:inputText >
+
+				 <p:outputLabel value="RG"  />
+				<p:inputText styleClass="rg" id="rg" maxlength="7" value="#{clienteBean.cliente.rg}"
+				readonly="#{clienteBean.cliente.rg}"/>
+				
+				
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
