@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Cadastro de agências</ui:define>
+
+	<ui:define name="corpo">
+	
+	<ui:define name="metadata" >
+	<f:metadata>
+	   <f:event listener="#{agenciaBeans.buscarporID}" type="preRenderView"></f:event>
+	</f:metadata>
+	</ui:define>
+	
+	<p:growl id="mensagem" />
+		<h:form>
+			<h1>Nova Agência</h1>
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" />
+					<p:commandButton value="Salvar" actionListener="#{agenciaBeans.salvar}"
+					update="mensagem"/>
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/agencia/listarAgencia"  />
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" 
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Endereço" />
+				<p:inputText id="endereco" size="20" maxlength="50" value="#{agenciaBeans.agencia.endereco}"/>
+
+				<p:outputLabel value="Número da agência"  />
+				<p:inputText id="gencia" size="14" maxlength="14" styleClass="agencia"
+				value="#{agenciaBeans.agencia.numeroAgencia}" readonly="#{agenciaBeans.agencia.numeroAgencia}">
+				</p:inputText >
+
+				
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

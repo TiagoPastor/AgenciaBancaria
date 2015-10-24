@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Pesquisar agências</ui:define>
+    
+    <ui:define name="corpo">
+    
+    <p:growl id="mensagem" />
+    
+    <h:form id="formAgencia">
+	    	<h1>Pesquisar Agência</h1>
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Pesquisar" actionListener="#{agenciaBeans.pesquisarAgencia()}"
+	    			update="@form"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Novo" outcome="/agencia/agenciacadastro" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel1" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    			
+	    		<p:outputLabel value="Endereço" for="endereco"/>
+	    		<p:inputText id="endereco" size="20" maxlength="50" value="#{agenciaBeans.filtro.endereco}"/>
+	    		
+	    		<p:outputLabel value="Número da agência" for="agencia"/>
+	    		<p:inputText id="agencia" size="9" value="#{agenciaBeans.filtro.numeroAgencia}" 
+	    		styleClass="agencia" 
+	    		/>
+	    	</p:panelGrid>
+	    	
+	    	<p:dataTable id="tabela"  var="agencia" value="#{agenciaBeans.listadeAgencia}"
+	    	style="margin-top: 20px" emptyMessage="Nenhuma agência encontrado." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Codigo" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{agencia.codigo}"/>
+	    		</p:column>
+	    		<p:column headerText="Endereço" style="width: 200px">
+	    			<h:outputText  value="#{agencia.endereco}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Número da agência" style="width: 200px">
+	    			<h:outputText value="#{agencia.numeroAgencia}" />
+	    		</p:column>
+	    		
+	    		<p:column style="width: 100px; text-align: center">
+	    			<p:button icon="ui-icon-pencil" title="Editar"
+	    			outcome="/agencia/agenciacadastro">
+	    			 <f:param name="agenParam" value="#{agencia.codigo}"/>
+	    			</p:button>
+	    			
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir"
+	    		       update=":mensagem :formAgencia:tabela" actionListener="#{agenciaBeans.excluir}">
+	    			<p:confirm header="Confirmação" message="Deseja excluir a agência?"
+	    			icon="ui-icon-alert"/>
+	    			<f:attribute name="agenciaSelecionada" value="#{agencia}"/>
+	    			</p:commandButton>
+	    		</p:column>
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog global="true">
+	    	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+	    	icon="ui-icon-check"/>
+	    	<p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no"
+	    	icon="ui-icon-close"/>
+	    	</p:confirmDialog>
+	    	
+    	</h:form>
+    	
+    </ui:define>
+</ui:composition>
