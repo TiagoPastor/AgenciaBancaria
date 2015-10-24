@@ -40,9 +40,11 @@
 						<p:submenu label="Cadastros">
 							<p:menuitem value="Clientes" outcome="/cliente/clienteCadastro" />
 							<p:menuitem value="Contas" outcome="/conta/cadastroConta"/>
+							<p:menuitem value="Agência" outcome="/agencia/agenciacadastro"/>
 						</p:submenu>
 						<p:submenu label="Consulta">
 							<p:menuitem value="Cliente" outcome="/cliente/pesquisaCliente" />
+							<p:menuitem value="Agência" outcome="/agencia/listarAgencia" />
 							<p:menuitem value="Conta" />
 						</p:submenu>
 						<p:menuitem value="Sair" />
@@ -76,7 +78,7 @@
 $(document).ready(function(){
 	$(".data").mask("99/99/9999");
         $(".cpf").mask("999.999.999-99");
-        $(".cep").mask("99.999-999");
+        $(".agencia").mask("9999-99");
         $(".rg").mask("9999999");
 });
 </script>

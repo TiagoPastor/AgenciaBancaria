@@ -1,5 +1,6 @@
 package br.com.dao;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -12,12 +13,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import br.com.filter.ClienteFilter;
+import br.com.model.Cliente;
 import br.com.util.HibernateUtil;
 
 
 
-public class GenericDao<Entidade> {
-	
+public class GenericDao<Entidade> implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@SuppressWarnings("unused")
 	private Class<Entidade> classe;
 	
@@ -52,7 +54,7 @@ public class GenericDao<Entidade> {
 		try{
 			Criteria consulta = sessao.createCriteria(classe);
 		//	List<Entidade> resultado = consulta.list();
-			return consulta.addOrder(Order.asc("nome")).list();
+			return consulta.list();
 		}catch(RuntimeException erro){
 			throw erro;
 		}finally {
@@ -82,7 +84,7 @@ public class GenericDao<Entidade> {
 			sessao.close();
 		}
 	}
-	                           
+	                       
 	
 	@SuppressWarnings("unchecked")
 	public Entidade buscarPorId(Long id){
@@ -154,7 +156,7 @@ public class GenericDao<Entidade> {
 			sessao.close();
 		}
 	}
-	
+
 	
 
 }

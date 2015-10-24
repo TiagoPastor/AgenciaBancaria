@@ -3,8 +3,11 @@ package br.com.model;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -13,13 +16,14 @@ public class Conta {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	private int agencia;
-	private int senha;
+	private String senha;
 	private int numeroConta;
 	private BigDecimal saldo;
 	private BigDecimal limite;
+	@Enumerated(EnumType.STRING)
 	private TipoDeConta tipoConta;
+	@ManyToOne
+	private Agencia agencia;
 	
 	@OneToOne
 	private Cliente cliente;
@@ -31,16 +35,10 @@ public class Conta {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public int getAgencia() {
-		return agencia;
-	}
-	public void setAgencia(int agencia) {
-		this.agencia = agencia;
-	}
-	public int getSenha() {
+	public String getSenha() {
 		return senha;
 	}
-	public void setSenha(int senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
 	public int getNumeroConta() {
@@ -76,6 +74,14 @@ public class Conta {
 	
 	public void setTipoConta(TipoDeConta tipoConta) {
 		this.tipoConta = tipoConta;
+	}
+	
+	public Agencia getAgencia() {
+		return agencia;
+	}
+	
+	public void setAgencia(Agencia agencia) {
+		this.agencia = agencia;
 	}
 	
 	@Override

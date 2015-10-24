@@ -3,6 +3,7 @@ package br.com.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
@@ -14,19 +15,14 @@ import br.com.filter.ClienteFilter;
 import br.com.model.Cliente;
 import br.com.util.FacesUtil;
 
-@SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
 public class ClienteBean implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	private Cliente cliente;
 	private List<Cliente> clientes;
 	private ClienteFilter filtro;
-	
-	private Long id;
-	
-	
-	
 	
 	public ClienteBean() {
 		
@@ -54,19 +50,15 @@ public class ClienteBean implements Serializable{
 		this.filtro = filtro;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
+	public void novo(){
+		cliente = new Cliente();
 	}
 	
 	public void salvar(){
 		try{
 			ClienteDao dao = new ClienteDao();
 			dao.merge(cliente);
-			  cliente = new Cliente();
+			  novo();
 		    Messages.addGlobalInfo("Cliente salva com sucesso");
 		  
 		}catch(RuntimeException erro){
@@ -109,7 +101,7 @@ public class ClienteBean implements Serializable{
 			
 		}
 	}
-	
+	//@PostConstruct
 	public void carregarCadastro(){
 		try{
 		 String valor = FacesUtil.getParam("funAcao");
@@ -120,7 +112,7 @@ public class ClienteBean implements Serializable{
 			cliente = dao.buscarPorId(codigo);
 		 }
 	}catch(RuntimeException erro){
-		Messages.addGlobalError("Ocorreu um erro ao tentar listra os clientes");
+		Messages.addGlobalError("Ocorreu um erro ao tentar buscar o cliente");
 		erro.printStackTrace();
 	}
 		
