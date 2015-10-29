@@ -39,9 +39,9 @@
 				<p:inputText id="endereco" size="20" maxlength="50" value="#{agenciaBeans.agencia.endereco}"/>
 
 				<p:outputLabel value="Número da agência"  />
-				<p:inputText id="gencia" size="14" maxlength="14" styleClass="agencia"
+				<p:inputMask mask="9999-99" id="gencia" size="14" maxlength="14"
 				value="#{agenciaBeans.agencia.numeroAgencia}" readonly="#{agenciaBeans.agencia.numeroAgencia}">
-				</p:inputText >
+				</p:inputMask>
 
 				
 

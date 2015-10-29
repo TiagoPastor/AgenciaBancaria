@@ -1,5 +1,6 @@
 package br.com.teste;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -9,6 +10,7 @@ import br.com.dao.ClienteDao;
 import br.com.dao.ContaDao;
 import br.com.model.Cliente;
 import br.com.model.Conta;
+import br.com.util.ContaUtil;
 
 public class TesteContaDao {
 	
@@ -34,28 +36,26 @@ public class TesteContaDao {
 		
 		System.out.println(conta);
 	}
+	*/
 	
 	@Test
-	@Ignore
+	
 	public void editar(){
-		ClienteDao clienteDao = new ClienteDao();
-		Cliente cliente = clienteDao.buscarPorId(1L);
+		/*ClienteDao clienteDao = new ClienteDao();
+		Cliente cliente = clienteDao.buscarPorId(1L);*/
 		ContaDao dao = new ContaDao();
 		
 		Conta conta = dao.buscarPorId(4L);
-		conta.setAgencia(123456);
 		conta.setLimite(new BigDecimal(2500.00));
-		conta.setNumeroConta(23458);
 		conta.setSaldo(new BigDecimal(500.00));
-		conta.setSenha(2389);
 		
-		conta.setCliente(cliente);
+//		conta.setCliente(cliente);
 		
 		
 		dao.editar(conta);
 		
 		System.out.println(conta);
-	}*/
+	}
 	
 	@Test
 	@Ignore
@@ -82,11 +82,18 @@ public class TesteContaDao {
 	   System.out.println(cliente);
 }
 	@Test
-
+@Ignore
       public void teste(){
     	  ClienteDao dao = new ClienteDao();
     	  List<Cliente> listar = dao.buscarPorNome("pastor");
     	  System.out.println(listar);
       }
+	
+	@Test
+	@Ignore
+	public void gerarnumero(){
+		ContaUtil n = new ContaUtil();
+		n.gerarNumeroConta();
+	}
 	
 }

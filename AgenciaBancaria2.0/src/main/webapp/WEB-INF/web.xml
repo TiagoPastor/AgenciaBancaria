@@ -18,4 +18,9 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
+   
+   <!-- Carregamento do contexto do Hibernate -->
+  <listener>
+   <listener-class>br.com.util.ContextListener</listener-class>
+  </listener>
 </web-app>

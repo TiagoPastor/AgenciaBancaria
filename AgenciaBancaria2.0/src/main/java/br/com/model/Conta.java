@@ -9,6 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Conta {
@@ -16,9 +21,14 @@ public class Conta {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@NotEmpty(message = "Ocampo senha é obrigatorio")
+	@Size(message = "A senha deve ter no mínimo 6 e máximo 32 caracteres", max = 32, min= 6)
 	private String senha;
-	private int numeroConta;
+	private Long numeroConta;
 	private BigDecimal saldo;
+	@Digits(integer=4, fraction=2, message= "O limite máximo do valor da conta é de R$ 9.999,99 ")
+	@DecimalMin("500.00")
 	private BigDecimal limite;
 	@Enumerated(EnumType.STRING)
 	private TipoDeConta tipoConta;
@@ -26,7 +36,7 @@ public class Conta {
 	private Agencia agencia;
 	
 	@OneToOne
-	private Cliente cliente;
+		private Cliente cliente;
 	
 	
 	public Long getId() {
@@ -41,10 +51,10 @@ public class Conta {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public int getNumeroConta() {
+	public Long getNumeroConta() {
 		return numeroConta;
 	}
-	public void setNumeroConta(int numeroConta) {
+	public void setNumeroConta(Long numeroConta) {
 		this.numeroConta = numeroConta;
 	}
 	public BigDecimal getSaldo() {

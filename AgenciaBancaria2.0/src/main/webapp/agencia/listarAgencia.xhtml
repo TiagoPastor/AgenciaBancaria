@@ -32,9 +32,7 @@
 	    		<p:inputText id="endereco" size="20" maxlength="50" value="#{agenciaBeans.filtro.endereco}"/>
 	    		
 	    		<p:outputLabel value="Número da agência" for="agencia"/>
-	    		<p:inputText id="agencia" size="9" value="#{agenciaBeans.filtro.numeroAgencia}" 
-	    		styleClass="agencia" 
-	    		/>
+	    		<p:inputMask mask="9999-99" id="agencia" size="9" value="#{agenciaBeans.filtro.numeroAgencia}"/>
 	    	</p:panelGrid>
 	    	
 	    	<p:dataTable id="tabela"  var="agencia" value="#{agenciaBeans.listadeAgencia}"

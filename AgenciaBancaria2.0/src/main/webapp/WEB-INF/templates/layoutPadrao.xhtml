@@ -38,14 +38,24 @@
 				<h:form style="display: inline-block">
 					<p:menubar styleClass="menu-sistema">
 						<p:submenu label="Cadastros">
-							<p:menuitem value="Clientes" outcome="/cliente/clienteCadastro" />
-							<p:menuitem value="Contas" outcome="/conta/cadastroConta"/>
+							<p:menuitem value="Cliente" outcome="/cliente/clienteCadastro"/>
+							<p:menuitem value="Conta" outcome="/conta/cadastroConta">
+							<f:param name="contNovo" value="Novo"/>
+							</p:menuitem>
 							<p:menuitem value="Agência" outcome="/agencia/agenciacadastro"/>
 						</p:submenu>
-						<p:submenu label="Consulta">
+						<p:submenu label="Consultas">
 							<p:menuitem value="Cliente" outcome="/cliente/pesquisaCliente" />
 							<p:menuitem value="Agência" outcome="/agencia/listarAgencia" />
-							<p:menuitem value="Conta" />
+							<p:menuitem value="Conta" outcome="/conta/pesquisaConta"/>
+						</p:submenu>
+						
+						<p:submenu label="Serviços">
+						<p:menuitem value="Extrato" />
+						<p:menuitem value="Depósito" outcome="/servicos/deposito" />
+						<p:menuitem value="Saque" outcome="/servicos/saque" />
+						
+						
 						</p:submenu>
 						<p:menuitem value="Sair" />
 					</p:menubar>

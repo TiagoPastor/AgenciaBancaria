@@ -7,7 +7,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:o="http://omnifaces.org/ui">
 
-	<ui:define name="titulo">Cadastro de Carros</ui:define>
+	<ui:define name="titulo">Cadastro de clientes</ui:define>
 
 	<ui:define name="corpo">
 	
@@ -42,13 +42,12 @@
 				readonly="#{clienteBean.cliente.nome}"/>
 
 				<p:outputLabel value="CPF"  />
-				<p:inputText id="cpf" styleClass="cpf" size="14" maxlength="14" value="#{clienteBean.cliente.cpf}"
+				<p:inputMask mask="999.999.999-99" id="cpf"  size="14" maxlength="14" value="#{clienteBean.cliente.cpf}"
 				readonly="#{clienteBean.cliente.cpf}">
-				
-				</p:inputText >
+				</p:inputMask>
 
 				 <p:outputLabel value="RG"  />
-				<p:inputText styleClass="rg" id="rg" maxlength="7" value="#{clienteBean.cliente.rg}"
+				<p:inputMask mask="9999999" styleClass="rg" id="rg" maxlength="7" value="#{clienteBean.cliente.rg}"
 				readonly="#{clienteBean.cliente.rg}"/>
 				
 				

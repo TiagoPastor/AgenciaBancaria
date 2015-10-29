@@ -8,31 +8,39 @@
   <ui:define name="metadata">
 <f:metadata>
   <f:event listener="#{contaBeans.inicializar}" type="preRenderView"/>
+  <f:event listener="#{contaBeans.carregarCadastro}" type="preRenderView"/>
+  <f:viewParam name="contEdit" value="#{contaBeans.acao}"/>
+  <f:viewParam name="contNovo" value="#{contaBeans.acao}"/>
+   <f:viewParam name="novo" value="#{contaBeans.acao}"/>
 </f:metadata> 
 </ui:define>  
 
      <ui:define name="titulo">Novo produto</ui:define>
     
     <ui:define name="corpo">
-    	<!-- <f:metadata>
-    		<f:viewParam name="dummy" />
-    		<f:event listener="#{cadastroProdutoBean.inicializar}" type="preRenderView" />
-    	</f:metadata> -->
+    		<p:growl id="mensagem" />
     
     	<h:form>
 	    	<h1>Novo Conta</h1>
 	    	
-	    	<p:messages autoUpdate="true" closable="true" />
+	    	<!-- <p:messages autoUpdate="true" closable="true" /> -->
 	    	
 	    	<p:toolbar style="margin-top: 20px">
-	    		<p:toolbarGroup>
-	    			<p:button value="Novo" />
+	    		<p:toolbarGroup >
+	    			<p:button value="Novo" rendered="#{contaBeans.acao =='Novo'}">
+	    			<f:param name="novo" value="Novo"></f:param>
+	    			</p:button>
 	    			
 	    			<p:commandButton value="Salvar" id="botaoSalvar" actionListener="#{contaBeans.salvar}"
-	    				 update="@form" />
+	    			      	rendered="#{contaBeans.acao =='Novo'}"  update="@form :mensagem"  />
+	    				 <p:commandButton value="Editar" id="botaoEditar"
+	    				  rendered="#{contaBeans.acao =='Editar'}" update="mensagem" 
+	    				  actionListener="#{contaBeans.editar}">
+	    				  </p:commandButton>
+	    		
 	    		</p:toolbarGroup>
 	    		<p:toolbarGroup align="right">
-	    			<p:button value="Pesquisa"  />
+	    			<p:button value="Pesquisa" outcome="/conta/pesquisaConta" />
 	    		</p:toolbarGroup>
 	    	</p:toolbar>
 	    	
@@ -43,22 +51,23 @@
 	    		    <p:autoComplete id="cliente" value="#{contaBeans.conta.cliente}" dropdown="true"
 	    		       completeMethod="#{contaBeans.pesquisarCliente}"
 	    		       itemValue="#{cliente}" var="cliente" 
-	    		        itemLabel="#{cliente.nome}" forceSelection="true"/>
+	    		        itemLabel="#{cliente.nome}" forceSelection="true" required="true" 
+	    		        requiredMessage="Selecione um cliente"/>
 	    		    
 	        	 
 	    			
 	    		<p:outputLabel value="Agência" for="agencia"/>
-	    		<p:selectOneMenu id="agencia" value="#{contaBeans.conta.agencia}">
+	    		<p:selectOneMenu id="agencia" value="#{contaBeans.conta.agencia}" required="true" requiredMessage="Selecione uma agência">
 	    			<f:selectItem itemLabel="Selecione"/>
 	    			<f:selectItems value="#{contaBeans.listarAgencia}" var="agencia"
-	    			itemValue="#{agencia}" itemLabel="#{agencia.numeroAgencia}"/>
+	    			itemValue="#{agencia}" itemLabel="#{agencia.numeroAgencia}" />
 	    		</p:selectOneMenu>
 	    		
 	    		<p:outputLabel value="senha" for="senha"/>
 	    		<p:password id="senha" size="20" maxlength="20" value="#{contaBeans.conta.senha}"/>
 	    		
 	    		<p:outputLabel value="Tipo da Conta" for="tipoConta"/>
-	    		<p:selectOneMenu id="tipoConta" value="#{contaBeans.conta.tipoConta}">
+	    		<p:selectOneMenu id="tipoConta" value="#{contaBeans.conta.tipoConta}" required="true" requiredMessage="Escolha o tipo da conta">
 	    			<f:selectItem itemLabel="Selecione o tipo da conta"/>
 	    			<f:selectItems value="#{contaBeans.tipoConta}" var="tipoConta"
 	    			itemValue="#{tipoConta}" itemLabel="#{tipoConta.descricao}"/>
@@ -69,6 +78,7 @@
 	    		value="#{contaBeans.conta.limite}">
 	    			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 	    		</p:inputText>
+	    	
 	    	</p:panelGrid>
     	</h:form>
     </ui:define>

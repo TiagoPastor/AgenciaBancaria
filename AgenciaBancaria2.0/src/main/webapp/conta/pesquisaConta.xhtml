@@ -1,9 +1,97 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="">
-	</ui:composition>
-</html>
+    <ui:define name="titulo">Pesquisa de contas</ui:define>
+    
+    <ui:define name="corpo">
+    
+    <p:growl id="mensagem" />
+    
+    <h:form id="formCliente">
+	    	<h1>Pesquisar Contas</h1>
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Pesquisar" actionListener="#{contaBeans.pesquisar}" 
+	    			update="@form"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+	    			<p:button value="Novo" outcome="/conta/cadastroConta" />
+	    		</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel1" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    			
+	    		<p:outputLabel value="Número da conta" for="numero"/>
+	    		<p:inputMask mask="99999"  id="numero"  
+	    		value="#{contaBeans.contafilter.numeroConta}"/>
+	    		 
+	    	  <p:outputLabel value="Nome do cliente" for="nome"/>
+	    		<p:inputText id="nome" size="20" value="#{contaBeans.contafilter.nomePessoa}"
+	    		/>  
+	    		
+	    	</p:panelGrid>
+	    	
+	    	<p:dataTable id="tabela"  var="conta" value="#{contaBeans.listarContas}"
+	    	style="margin-top: 20px" emptyMessage="Nenhuma conta encontrada." rows="20"
+	    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+	    		
+	    		<p:column headerText="Código" style="text-align: center; width: 100px">
+	    			<h:outputText value="#{conta.id}"/>
+	    		</p:column>
+	    		<p:column headerText="Cliente" style="width: 200px">
+	    			<h:outputText value="#{conta.cliente.nome}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Saldo" style="width: 200px">
+	    			<h:outputText value="#{conta.saldo}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Limite" style="width: 200px">
+	    			<h:outputText value="#{conta.limite}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Tipo da conta" style="width: 200px">
+	    			<h:outputText value="#{conta.tipoConta.descricao}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Agência" style="width: 200px">
+	    			<h:outputText value="#{conta.agencia.numeroAgencia}" />
+	    		</p:column>
+	    		
+	    		<p:column headerText="Número da conta" style="width: 200px">
+	    			<h:outputText value="#{conta.numeroConta}" />
+	    		</p:column>
+	    		<p:column style="width: 100px; text-align: center">
+	    			<p:button icon="ui-icon-pencil" title="Editar" 
+	    			outcome="/conta/cadastroConta">
+	    			 <f:param name="contcod" value="#{conta.id}"/>
+	    			 <f:param name="contEdit" value="Editar"/>
+	    			</p:button>
+	    			
+	    			<p:commandButton icon="ui-icon-trash" title="Excluir"
+	    			 update=":mensagem :formCliente:tabela"  actionListener="#{contaBeans.excluir}">
+	    			<p:confirm header="Confirmação" message="Deseja excluir a conta?"
+	    			icon="ui-icon-alert"/>
+	    			<f:attribute name="contaSelecionado" value="#{conta}"/>
+	    			</p:commandButton>
+	    		</p:column>
+	    	</p:dataTable>
+	    	
+	    	<p:confirmDialog global="true">
+	    	<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes"
+	    	icon="ui-icon-check"/>
+	    	<p:commandButton value="Não" type="button"  styleClass="ui-confirmdialog-no"
+	    	icon="ui-icon-close"/>
+	    	</p:confirmDialog>
+	    	
+    	</h:form>
+    	
+    </ui:define>
+</ui:composition>

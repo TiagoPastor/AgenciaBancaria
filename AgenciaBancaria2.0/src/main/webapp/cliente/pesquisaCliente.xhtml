@@ -28,7 +28,7 @@
 	    	<p:panelGrid columns="2" id="painel1" style="width: 100%; margin-top: 20px"
 	    			columnClasses="rotulo, campo">
 	    		<p:outputLabel value="CPF" for="cpf"/>
-	    		<p:inputText styleClass="cpf" id="cpf" size="14" maxlength="14"  value="#{clienteBean.filtro.cpf}"/>
+	    		<p:inputMask mask="999.999.999-99" id="cpf" size="14" maxlength="14"  value="#{clienteBean.filtro.cpf}"/>
 	    		
 	    		<p:outputLabel value="Nome" for="nome"/>
 	    		<p:inputText id="nome" size="60" value="#{clienteBean.filtro.nome}"/>
