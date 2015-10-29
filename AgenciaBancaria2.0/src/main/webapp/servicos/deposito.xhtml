@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templates/layoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Depósito</ui:define>
+
+	<ui:define name="corpo">
+	
+	<p:growl id="mensagem" />
+		<h:form>
+			<h1>Depósito</h1>
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:button value="Novo" />
+					<p:separator/>
+					<p:commandButton value="Salvar" 
+					update="mensagem" actionListener="#{contaBeans.depositar}">					
+					</p:commandButton>
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" 
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				<p:outputLabel value="Valor" />
+				<p:inputText id="valor" size="20" maxlength="50"
+				value="#{contaBeans.conta.saldo}"/>
+
+				
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
