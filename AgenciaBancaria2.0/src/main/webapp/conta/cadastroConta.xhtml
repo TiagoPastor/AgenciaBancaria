@@ -78,6 +78,9 @@
 	    		value="#{contaBeans.conta.limite}">
 	    			<f:convertNumber maxFractionDigits="2" minFractionDigits="2" />
 	    		</p:inputText>
+	    		
+	    		<p:outputLabel value="Depósito" for="deposito"/>
+	    		<p:inputText id="deposito" value="#{contaBeans.conta.saldo}"/>
 	    	
 	    	</p:panelGrid>
     	</h:form>

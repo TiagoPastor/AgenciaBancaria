@@ -12,6 +12,7 @@ import br.com.model.Cliente;
 public class TesteClienete {
 
 	@Test
+	@Ignore
 	public void salvar(){
 		 Cliente cliente = new Cliente();
 		cliente.setNome("joão");
@@ -51,6 +52,12 @@ public class TesteClienete {
 		ClienteDao dao = new ClienteDao();
 		Cliente cliente = dao.buscarPorId(2L);
 		dao.excluir(cliente);
+		System.out.println(cliente);
+	}
+	   @Test
+	public void buscarporCPF(){
+		ClienteDao dao = new ClienteDao();
+		Cliente cliente = dao.buscarPorCPF("983.314.858-15");
 		System.out.println(cliente);
 	}
 	

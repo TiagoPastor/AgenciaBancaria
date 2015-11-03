@@ -1,10 +1,16 @@
 package br.com.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -29,6 +35,13 @@ public class Cliente implements Serializable {
 	
 	@NotEmpty(message = "O campo RG é obrigatório")
 	private String rg;
+	
+	private String senha;
+	
+	@ManyToMany()
+	/*@JoinTable(name = "cliente_grupo", joinColumns = @JoinColumn(name="cliente_id"),
+	inverseJoinColumns = @JoinColumn(name = "grupo_id"))*/
+	private List<Grupo> grupos = new ArrayList<>();
 	
 	public Long getId() {
 		return id;
@@ -56,6 +69,23 @@ public class Cliente implements Serializable {
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+	
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

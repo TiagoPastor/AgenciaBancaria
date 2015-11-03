@@ -28,6 +28,23 @@ public class ClienteDao extends GenericDao<Cliente> {
 			sessao.close();
 			return null;
 		}
+
+	public Cliente buscarPorCPF(String cpf) {
+		Cliente cliente = null;
+		 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); 
+		try{
+			Criteria consulta = sessao.createCriteria(Cliente.class);
+			consulta.add(Restrictions.eq("cpf", cpf));
+			cliente = (Cliente) consulta.uniqueResult();
+			
+		}catch(RuntimeException erro){
+			System.out.println("Erro ao tentar buscar um cliente pelo cpf");
+			throw erro;
+		}finally {
+			sessao.close();
+		}
+		return cliente;
+	}
 	}   
 
 

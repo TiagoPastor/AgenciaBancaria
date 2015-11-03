@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
@@ -24,6 +25,7 @@ import br.com.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
+
 public class ContaBeans implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -194,7 +196,7 @@ public class ContaBeans implements Serializable {
 		try{
 
 			ContaDao contaDao = new ContaDao();
-			conta = contaDao.buscarPorId(3L);
+			//conta = contaDao.buscarPorId(3L);
 		System.out.println(conta);
 		conta.setSenha("1235ACDG");
 		//conta.setSaldo(new BigDecimal(5000));
@@ -205,5 +207,10 @@ public class ContaBeans implements Serializable {
 			erro.printStackTrace();
 		}
 		
+	}
+	
+	public void teste(){
+		ContaDao dao = new ContaDao();
+		conta = dao.buscarPorId(8L);
 	}
 }

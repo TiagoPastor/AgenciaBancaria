@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
@@ -17,6 +18,7 @@ import br.com.util.FacesUtil;
 
 @ManagedBean
 @ViewScoped
+
 public class ClienteBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

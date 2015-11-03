@@ -33,6 +33,7 @@
 		<mapping class="br.com.model.Cliente" />
 		<mapping class="br.com.model.Conta" />
 		<mapping class="br.com.model.Agencia" />
+		<mapping class="br.com.model.Grupo"/>
 		
 
 

@@ -26,6 +26,7 @@ public class Conta {
 	@Size(message = "A senha deve ter no mínimo 6 e máximo 32 caracteres", max = 32, min= 6)
 	private String senha;
 	private Long numeroConta;
+	@Digits(integer=4, fraction=2, message= "O limite máximo do valor da conta é de R$ 9.999,99 ")
 	private BigDecimal saldo;
 	@Digits(integer=4, fraction=2, message= "O limite máximo do valor da conta é de R$ 9.999,99 ")
 	@DecimalMin("500.00")
