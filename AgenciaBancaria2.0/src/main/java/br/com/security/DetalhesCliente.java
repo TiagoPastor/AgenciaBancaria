@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import br.com.dao.ClienteDao;
 import br.com.model.Cliente;
+import br.com.model.Grupo;
 
 public class DetalhesCliente implements UserDetailsService{
 
@@ -31,10 +32,10 @@ public class DetalhesCliente implements UserDetailsService{
 
 	private Collection<? extends GrantedAuthority> getGrupos(Cliente cliente) {
 		List<SimpleGrantedAuthority> grupos = new ArrayList<>();
-		/*
+		
 		for(Grupo grupo : cliente.getGrupos()){
-			grupos.add(new SimpleGrantedAuthority(grupo.getNome().toUpperCase()));*/
-		//}
+			grupos.add(new SimpleGrantedAuthority(grupo.getNome().toUpperCase()));
+		}
 		return grupos;
 	}
 

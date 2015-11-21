@@ -1,5 +1,6 @@
 package br.com.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
@@ -15,9 +16,12 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import br.com.dao.ContaDao;
+
 @Entity
-public class Conta {
-	
+public class Conta implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -122,6 +126,14 @@ public class Conta {
 	public String toString() {
 		return "Conta [id=" + id + ", agencia=" + agencia + ", senha=" + senha + ", numeroConta=" + numeroConta
 				+ ", saldo=" + saldo + ", limite=" + limite + "]";
+	}
+	
+	public void calcularSaldo(){
+		BigDecimal total = BigDecimal.ZERO;
+		
+		total = total.add(this.getSaldo());
+		this.setSaldo(total);
+		
 	}
 	
 	

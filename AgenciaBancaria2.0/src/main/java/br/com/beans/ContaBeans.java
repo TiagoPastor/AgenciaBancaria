@@ -5,11 +5,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import br.com.dao.AgenciaDao;
 import br.com.dao.ClienteDao;
@@ -20,6 +21,7 @@ import br.com.model.Agencia;
 import br.com.model.Cliente;
 import br.com.model.Conta;
 import br.com.model.TipoDeConta;
+import br.com.security.ClienteLogado;
 import br.com.util.ContaUtil;
 import br.com.util.FacesUtil;
 
@@ -29,6 +31,7 @@ import br.com.util.FacesUtil;
 public class ContaBeans implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private static final BigDecimal ZERO = new BigDecimal(0.00);
 	private Conta conta;
 	private List<Cliente> listarClientes;
 	private List<Conta>listarContas;
@@ -39,6 +42,7 @@ public class ContaBeans implements Serializable {
 	private Agencia agencia;
 	
 	private String acao;
+	private BigDecimal valor;
 	
 	public ContaBeans() {
 		this.conta = new Conta();
@@ -112,6 +116,14 @@ public class ContaBeans implements Serializable {
 	
 	public void setAcao(String acao) {
 		this.acao = acao;
+	}
+	
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+	
+	public BigDecimal getValor() {
+		return valor;
 	}
 	
 
@@ -193,24 +205,61 @@ public class ContaBeans implements Serializable {
 	}
 	
 	public void depositar(){
+		ContaDao contaDao = new ContaDao();
 		try{
-
-			ContaDao contaDao = new ContaDao();
-			//conta = contaDao.buscarPorId(3L);
-		System.out.println(conta);
-		conta.setSenha("1235ACDG");
-		//conta.setSaldo(new BigDecimal(5000));
-		contaDao.editar(this.conta);
+			if(conta.getSaldo().compareTo(ZERO) >= 1){
+				System.out.println("O valor do deposito é " + getValor());
+				System.out.println("O saldo atual é " + getConta().getSaldo());
+				valor = getValor().add(conta.getSaldo());
+				System.out.println("Novo saldo " + valor);
+			   }else {
+				   System.out.println("faça seu primeiro depósito");   	
+					System.out.println("Seu Novo saldo " + valor);
+			}
+				
+				conta.setSaldo(valor);	
+		contaDao.editar(conta);
 		Messages.addGlobalInfo("Deposito feito com sucesso");
 		}catch(RuntimeException erro){
-			Messages.addGlobalError("Erro ao tentar excluir a conta");
+			Messages.addGlobalError("Erro ao tentar fazer o deposito");
 			erro.printStackTrace();
 		}
 		
 	}
 	
-	public void teste(){
+
+	public void carregarConta(){
 		ContaDao dao = new ContaDao();
-		conta = dao.buscarPorId(8L);
+		Long id = null;
+		ClienteLogado clienteLogado = getClienteLogado();
+		
+		if(clienteLogado != null){
+			id = clienteLogado.getCliente().getConta().getId();
+		}
+		
+		conta = dao.buscarPorId(id);
+		//conta.setSaldo(null);
+		System.out.println(conta);
+		
 	}
-}
+	
+	private ClienteLogado getClienteLogado() {
+		   ClienteLogado logado = null;
+			
+			UsernamePasswordAuthenticationToken auth = (UsernamePasswordAuthenticationToken)
+			FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal();
+			
+			 if (auth != null && auth.getPrincipal() != null){
+				logado = (ClienteLogado) auth.getPrincipal(); 
+			 }
+			return logado;
+		}
+	
+	public void novo(){
+		conta = new Conta();
+		
+      }
+		}
+	
+	
+

@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,13 +37,16 @@ public class Cliente implements Serializable {
 	
 	@NotEmpty(message = "O campo RG é obrigatório")
 	private String rg;
-	
 	private String senha;
 	
-	@ManyToMany()
-	/*@JoinTable(name = "cliente_grupo", joinColumns = @JoinColumn(name="cliente_id"),
-	inverseJoinColumns = @JoinColumn(name = "grupo_id"))*/
+	@ManyToMany(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@JoinTable(name = "cliente_grupo", joinColumns = @JoinColumn(name="cliente_id"),
+	inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List<Grupo> grupos = new ArrayList<>();
+	
+	@OneToOne
+	private Conta conta;
+	
 	
 	public Long getId() {
 		return id;
@@ -70,6 +75,7 @@ public class Cliente implements Serializable {
 		this.rg = rg;
 	}
 	
+	
 	public List<Grupo> getGrupos() {
 		return grupos;
 	}
@@ -84,6 +90,14 @@ public class Cliente implements Serializable {
 	
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Conta getConta() {
+		return conta;
+	}
+	
+	public void setConta(Conta conta) {
+		this.conta = conta;
 	}
 	
 	@Override
@@ -109,10 +123,18 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + "]";
+		return "Cliente [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", rg=" + rg + ", senha=" + senha + ", grupos="
+				+ grupos + ", conta=" + conta + "]";
 	}
+
+   
+	
+	
+	
+	
 	
 	
 	

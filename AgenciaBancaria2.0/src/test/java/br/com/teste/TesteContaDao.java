@@ -45,10 +45,11 @@ public class TesteContaDao {
 		Cliente cliente = clienteDao.buscarPorId(1L);*/
 		ContaDao dao = new ContaDao();
 		
-		Conta conta = dao.buscarPorId(4L);
-		conta.setLimite(new BigDecimal(2500.00));
-		conta.setSaldo(new BigDecimal(500.00));
-		
+		Conta conta = dao.buscarPorId(1L);
+		System.out.println(conta);
+		//conta.setLimite(new BigDecimal(2000.00));
+		conta.setSenha("testettt");
+		System.out.println("saldo da conta" + conta.getSaldo());
 //		conta.setCliente(cliente);
 		
 		

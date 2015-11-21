@@ -32,6 +32,7 @@ public class ClienteDao extends GenericDao<Cliente> {
 	public Cliente buscarPorCPF(String cpf) {
 		Cliente cliente = null;
 		 Session sessao = HibernateUtil.getFabricaDeSessoes().openSession(); 
+		 //Cliente c = (Cliente) sessao.load(Cliente.class, 1L);
 		try{
 			Criteria consulta = sessao.createCriteria(Cliente.class);
 			consulta.add(Restrictions.eq("cpf", cpf));

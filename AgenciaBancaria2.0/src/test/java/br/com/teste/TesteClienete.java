@@ -37,7 +37,7 @@ public class TesteClienete {
 	}
 	
 	@Test
-	@Ignore
+
 	public void lista(){
 		
 		ClienteDao dao = new ClienteDao();
@@ -55,9 +55,10 @@ public class TesteClienete {
 		System.out.println(cliente);
 	}
 	   @Test
+	   @Ignore
 	public void buscarporCPF(){
 		ClienteDao dao = new ClienteDao();
-		Cliente cliente = dao.buscarPorCPF("983.314.858-15");
+		Cliente cliente = dao.buscarPorCPF("094.445.814-97");
 		System.out.println(cliente);
 	}
 	
